@@ -141,6 +141,7 @@ def do_dccnn(trainX, testX, trainY, testY):
     branch11 = conv_1d(network, 128, 3, padding='valid', activation='relu', regularizer="L2")
     branch12 = conv_1d(network, 128, 4, padding='valid', activation='relu', regularizer="L2")
     branch13 = conv_1d(network, 128, 5, padding='valid', activation='relu', regularizer="L2")
+    print branch11.shape
     network = merge([branch11, branch12, branch13], mode='concat', axis=1)
     network = tf.expand_dims(network, 2)
     network = global_max_pool(network)
