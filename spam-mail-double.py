@@ -137,14 +137,16 @@ def do_dccnn(trainX, testX, trainY, testY):
     # Building convolutional network
     network = input_data(shape=[None,max_document_length], name='input')
     network = tflearn.embedding(network, input_dim=max_sequence+1, output_dim=128)
-
     branch11 = conv_1d(network, 128, 3, padding='valid', activation='relu', regularizer="L2")
     branch12 = conv_1d(network, 128, 4, padding='valid', activation='relu', regularizer="L2")
     branch13 = conv_1d(network, 128, 5, padding='valid', activation='relu', regularizer="L2")
+    network = merge([branch11, branch12, branch13], mode='concat', axis=1)
+    network = tf.expand_dims(network, 2)
+    network = global_max_pool(network)
 
-    branch21 = conv_1d(branch11, 128, 3, padding='valid', activation='relu', regularizer="L2")
-    branch22 = conv_1d(branch12, 128, 3, padding='valid', activation='relu', regularizer="L2")
-    branch23 = conv_1d(branch13, 128, 3, padding='valid', activation='relu', regularizer="L2")
+    branch21 = conv_1d(network, 128, 3, padding='valid', activation='relu', regularizer="L2")
+    branch22 = conv_1d(network, 128, 3, padding='valid', activation='relu', regularizer="L2")
+    branch23 = conv_1d(network, 128, 3, padding='valid', activation='relu', regularizer="L2")
 
     network = merge([branch21, branch22, branch23], mode='concat', axis=1)
     network = tf.expand_dims(network, 2)
