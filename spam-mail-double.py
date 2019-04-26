@@ -239,9 +239,9 @@ def  get_features_by_tf():
     x=ham+spam
     y=[0]*len(ham)+[1]*len(spam)
     vp=tflearn.data_utils.VocabularyProcessor(max_document_length=max_document_length,
-                                            # min_frequency=0,
-                                            # vocabulary=None,
-                                            # tokenizer_fn=None)
+                                             min_frequency=0,
+                                             vocabulary=None,
+                                             tokenizer_fn=None)
     x=vp.fit_transform(x, unused_y=None)
     x=np.array(list(x))
     return x,y
