@@ -248,7 +248,25 @@ def  get_features_by_tf():
     x=np.array(list(x))
     return x,y
 
-
+def get_features_by_wordbag_tfidf():
+    ham, spam=load_all_files()
+    x=ham+spam
+    y=[0]*len(ham)+[1]*len(spam)
+    vectorizer = CountVectorizer(binary=False,
+                                 decode_error='ignore',
+                                 strip_accents='ascii',
+                                 max_features=max_features,
+                                 stop_words='english',
+                                 max_df=1.0,
+                                 min_df=1 )
+    print vectorizer
+    x=vectorizer.fit_transform(x)
+    x=x.toarray()
+    transformer = TfidfTransformer(smooth_idf=False)
+    print transformer
+    tfidf = transformer.fit_transform(x)
+    x = tfidf.toarray()
+    return  x,y
 
 if __name__ == "__main__":
     print "Hello spam-mail"
