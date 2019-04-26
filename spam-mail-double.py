@@ -147,8 +147,8 @@ def do_dccnn(trainX, testX, trainY, testY):
     #network = global_max_pool(network)
 
     branch21 = conv_1d(branch11, 128, 3, padding='valid', activation='relu', regularizer="L2")
-    branch22 = conv_1d(branch12, 128, 3, padding='valid', activation='relu', regularizer="L2")
-    branch23 = conv_1d(branch13, 128, 3, padding='valid', activation='relu', regularizer="L2")
+    branch22 = conv_1d(branch12, 128, 4, padding='valid', activation='relu', regularizer="L2")
+    branch23 = conv_1d(branch13, 128, 5, padding='valid', activation='relu', regularizer="L2")
     print branch21.shape
     
     network = merge([branch21, branch22, branch23], mode='concat', axis=1)
