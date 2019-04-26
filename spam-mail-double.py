@@ -264,5 +264,5 @@ if __name__ == "__main__":
     x,y=get_features_by_2gram_tfidf()
     x_train, x_test, y_train, y_test = train_test_split(x, y, test_size = 0.4, random_state = 0)
     # CNN
-    do_cnn_wordbag(x_train, x_test, y_train, y_test)
+    #do_cnn_wordbag(x_train, x_test, y_train, y_test)
     do_dccnn(x_train, x_test, y_train, y_test)
