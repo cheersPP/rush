@@ -173,6 +173,11 @@ def do_dccnn(trainX, testX, trainY, testY):
             y_predict.append(0)
         else:
             y_predict.append(1)
+    print 'y_predict_list:'
+    print y_predict_list
+    print 'y_predict:'
+    print  y_predict
+    print y_test
     do_metrics(y_test,y_predict)
 
 def do_cnn_wordbag(trainX, testX, trainY, testY):
