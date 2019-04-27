@@ -20,7 +20,7 @@ from tflearn.data_utils import to_categorical, pad_sequences
 from sklearn.neural_network import MLPClassifier
 from tflearn.layers.normalization import local_response_normalization
 from tensorflow.contrib import learn
-
+from sklearn import metrics
 
 max_features=5000
 max_document_length=100
@@ -133,6 +133,7 @@ def do_dccnn(trainX, testX, trainY, testY):
     # Converting labels to binary vectors
     trainY = to_categorical(trainY, nb_classes=2)
     testY = to_categorical(testY, nb_classes=2)
+    y_test = testY
 
     # Building convolutional network
     network = input_data(shape=[None,max_document_length], name='input')
@@ -163,6 +164,9 @@ def do_dccnn(trainX, testX, trainY, testY):
     model.fit(trainX, trainY,
               n_epoch=10, shuffle=True, validation_set=(testX, testY),
               show_metric=True, batch_size=100,run_id="spam")
+    
+    y_predict_list = model.predict(testX)
+    do_metrics(y_test,y_predict_list)
 
 def do_cnn_wordbag(trainX, testX, trainY, testY):
     global max_document_length
@@ -267,6 +271,18 @@ def get_features_by_wordbag_tfidf():
     tfidf = transformer.fit_transform(x)
     x = tfidf.toarray()
     return  x,y
+
+def do_metrics(y_test,y_pred):
+    print "metrics.accuracy_score:"
+    print metrics.accuracy_score(y_test, y_pred)
+    print "metrics.confusion_matrix:"
+    print metrics.confusion_matrix(y_test, y_pred)
+    print "metrics.precision_score:"
+    print metrics.precision_score(y_test, y_pred)
+    print "metrics.recall_score:"
+    print metrics.recall_score(y_test, y_pred)
+    print "metrics.f1_score:"
+    print metrics.f1_score(y_test,y_pred)
 
 if __name__ == "__main__":
     print "Hello spam-mail"
