@@ -126,6 +126,7 @@ def do_dccnn(trainX, testX, trainY, testY):
     global max_document_length
     print "Double Convolution CNN "
     y = trainY+testY
+    y_test = testY
     max_sequence = len(y)
 
     trainX = pad_sequences(trainX, maxlen=max_document_length, value=0.)
@@ -133,7 +134,7 @@ def do_dccnn(trainX, testX, trainY, testY):
     # Converting labels to binary vectors
     trainY = to_categorical(trainY, nb_classes=2)
     testY = to_categorical(testY, nb_classes=2)
-    y_test = testY
+    
 
     # Building convolutional network
     network = input_data(shape=[None,max_document_length], name='input')
