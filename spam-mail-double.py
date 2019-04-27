@@ -204,10 +204,11 @@ def do_cnn_wordbag(trainX, testX, trainY, testY):
     network = regression(network, optimizer='adam', learning_rate=0.0013,
                          loss='categorical_crossentropy', name='target')
     # Training
-    model = tflearn.DNN(network, tensorboard_verbose=0)
+    model = tflearn.DNN(network, tensorboard_verbose=3)
     model.fit(trainX, trainY,
               n_epoch=5, shuffle=True, validation_set=(testX, testY),
               show_metric=True, batch_size=100,run_id="spam")
+ 
 
 # def do_rnn_wordbag(trainX, testX, trainY, testY):
     # global max_document_length
