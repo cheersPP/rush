@@ -301,4 +301,4 @@ if __name__ == "__main__":
     # CNN
     #do_cnn_wordbag(x_train, x_test, y_train, y_test)
     do_dccnn(x_train, x_test, y_train, y_test)
-    show_diffrent_max_features()
+    #show_diffrent_max_features()
